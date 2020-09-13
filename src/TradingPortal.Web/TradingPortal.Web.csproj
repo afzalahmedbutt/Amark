@@ -1,0 +1,168 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <Description>ASPNET Core 2.1 - Angular6</Description>
+    <Copyright>Copyright © 2018 www.amark.com</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <Company>AMark</Company>
+    <Version>2.6.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="7.6.104" />
+    <PackageReference Include="MailKit" Version="2.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="OpenIddict" Version="2.0.0-rc3-final" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-rc3-final" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\components\graphs\**" />
+    <Compile Remove="ClientApp\src\app\components\product\**" />
+    <Compile Remove="ClientApp\src\app\components\requestfororder\**" />
+    <Compile Remove="ClientApp\src\app\components\wholesaleprices\**" />
+    <Compile Remove="Migrations\**" />
+    <Compile Remove="ViewModels\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\components\graphs\**" />
+    <Content Remove="ClientApp\src\app\components\product\**" />
+    <Content Remove="ClientApp\src\app\components\requestfororder\**" />
+    <Content Remove="ClientApp\src\app\components\wholesaleprices\**" />
+    <Content Remove="Migrations\**" />
+    <Content Remove="ViewModels\**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="ClientApp\src\app\components\graphs\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\components\product\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\components\requestfororder\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\components\wholesaleprices\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ClientApp\src\app\components\graphs\**" />
+    <None Remove="ClientApp\src\app\components\product\**" />
+    <None Remove="ClientApp\src\app\components\requestfororder\**" />
+    <None Remove="ClientApp\src\app\components\wholesaleprices\**" />
+    <None Remove="Migrations\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\components\spotprice\spotprice.component.ts" />
+    <None Remove="ClientApp\src\app\components\spotprice\spotprice.component1.ts" />
+    <None Remove="ClientApp\src\app\directives\maxvaluevalidator.directive.ts" />
+    <None Remove="ClientApp\src\app\directives\uppercase.directive.ts" />
+    <None Remove="ClientApp\src\app\models\admin\customer.model.ts" />
+    <None Remove="ClientApp\src\app\models\appinit.model.ts" />
+    <None Remove="ClientApp\src\app\models\content\content-view-model.model.ts" />
+    <None Remove="ClientApp\src\app\models\openposition\openposition.model.ts" />
+    <None Remove="ClientApp\src\app\models\openposition\shippinginfo.model.ts" />
+    <None Remove="ClientApp\src\app\models\order\european-fixes-view-model.model.ts" />
+    <None Remove="ClientApp\src\app\models\prices\brochureproducts.model.ts" />
+    <None Remove="ClientApp\src\app\models\prices\wholesaleprices.model.ts" />
+    <None Remove="ClientApp\src\app\models\selectlistitem.model.ts" />
+    <None Remove="ClientApp\src\app\models\topic\topic-view.model.ts" />
+    <None Remove="ClientApp\src\app\models\WebSpotPrice\update-spots-view-model.ts" />
+    <None Remove="ClientApp\src\app\models\WebSpotPrice\web-spot-prices.model.ts" />
+    <None Remove="ClientApp\src\app\pipes\decimalcurrency.pipe.ts" />
+    <None Remove="ClientApp\src\app\pipes\listfilter.pipe.ts" />
+    <None Remove="ClientApp\src\app\pipes\productsfilter.pipe.ts" />
+    <None Remove="ClientApp\src\app\resolvers\termsofservice.resolver.ts" />
+    <None Remove="ClientApp\src\app\services\app-routing.service.ts" />
+    <None Remove="ClientApp\src\app\services\appinit.service.ts" />
+    <None Remove="ClientApp\src\app\services\messages.ts" />
+    <None Remove="ClientApp\src\app\services\range-constants.service.ts" />
+    <None Remove="ClientApp\tsconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\tsconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TradingPortal.Business\TradingPortal.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\components\spotprice\spotprice.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\components\spotprice\spotprice.component1.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\directives\maxvaluevalidator.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\directives\uppercase.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\admin\customer.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\appinit.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\content\content-view-model.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\openposition\openposition.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\openposition\shippinginfo.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\feeds\european-fixes-view-model.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\prices\brochureproducts.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\prices\wholesaleprices.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\selectlistitem.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\topic\topic-view.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\WebSpotPrice\update-spots-view-model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\WebSpotPrice\web-spot-prices.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pipes\decimalcurrency.pipe.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pipes\listfilter.pipe.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\pipes\productsfilter.pipe.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\resolvers\termsofservice.resolver.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\appinit.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\messages.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\range-constants.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\app-routing.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\assets\fonts\" />
+    <Folder Include="ClientApp\src\app\components\order\" />
+    <Folder Include="ClientApp\src\app\primeng\" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+</Project>

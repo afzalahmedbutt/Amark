@@ -1,0 +1,54 @@
+<div *ngIf="spotPriceViewModel?.VsWhich" id="spotpricesheader" class="roundedheaderclear app-component container" style="padding-top:58px;background:#ff9900;width:80%;background-color:#d9d9d9">
+  <span *ngIf="spotPriceViewModel?.IsAfterHours == 'Yes' || spotPriceViewModel?.IsClosed == 'Yes'"  id="spotmarketmessageafterhours">MktText</span>
+  <span *ngIf="spotPriceViewModel?.IsAfterHours == 'Yes' || spotPriceViewModel?.IsClosed == 'Yes'" id="amarkdeskmessageafterhours">AmkText</span>
+  <span id="spotpricestext" style="float:left;color:#ff9900;">SPOT PRICES<span id="updatetime" style="color:#666;">{{updateTime}}</span></span>
+  <div id="offerside" style="width:250px; float:right">
+    <div style="float:left">Offer Side vs.</div>
+    <div id="offersidecontrol" class="radio-button" style="font-weight:normal;float:right">
+      <!--<input id="NY" name="radio" type="radio" value="NY" [(ngModel)]=spotPriceViewModel.VsWhich class="ui-helper-hidden-accessible" />
+  <label for="NY" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" role="button" aria-disabled="false"><span class="ui-button-text">NY Close</span></label>
+  <input id="PM" name="radio" type="radio" value="PM" [(ngModel)]=spotPriceViewModel.VsWhich class="ui-helper-hidden-accessible" />
+  <label for="NY" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" role="button" aria-disabled="false"><span class="ui-button-text">PM Fix</span></label>-->
+      <input id="NY" type="radio" name="radio" value="NY" (change)="vsWhichClicked()" [(ngModel)]="spotPriceViewModel.VsWhich" />
+      <label for="NY">NY Close</label>
+      <input id="PM" type="radio" name="radio" value="PM" (change)="vsWhichClicked()" [(ngModel)]="spotPriceViewModel.VsWhich" />
+      <label for="PM">PM Fix</label>
+    </div>
+  </div>
+</div>
+<div *ngIf="spotPriceViewModel?.Spots"  id="spotpricesbody" class="app-component container spotpricesblock" style="width:80%;background-color:#d9d9d9;border:.3px outset grey">
+  <div class="row">
+    <div *ngFor="let item of spotPriceViewModel.Spots" class="col-md-3 spot-price" style="border-color: rgb(231, 231, 231);">
+      <div class="row">
+        <div class="col-md-4">
+          <a><img [src]="spotPriceLogo" alt="logo" class="charticon"></a>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div [ngClass]="{'col-md-4':item.ComCode == 'G' || item.ComCode == 'S','col-md-5': item.ComCode == 'P' || item.ComCode == 'L'}" style="padding:0">
+              <a>{{getMetalNameFromComCode(item.ComCode)}}</a>
+            </div>
+            <div class="col-md-4" style="padding:0" [style.color]=getColor(item)>
+              <span  *ngIf="(item.Ask - item.VsClose) > 0">+</span><span>{{(item.Ask - item.VsClose) | number : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}</span>
+            </div>
+            <div class="col-md-3">
+              <img *ngIf="item.Ask < item.VsClose" [src]="downArrow" alt="logo">
+              <img *ngIf="item.Ask == item.VsClose" [src]="downArrow" alt="logo">
+              <img *ngIf="item.Ask > item.VsClose" [src]="upArrow" alt="logo">
+            </div>
+            <div class="col-md-2">
+              <span style="display:none">{{((item.Ask - item.VsClose)/ item.VsClose) | percent}}</span>
+            </div>
+
+          </div>
+          <div class="row">
+            <span>{{item.Bid | currency : 'USD': 'symbol' : (item.ComCode != 'S' ? '.2-2' : '.4-4')}} </span>/
+            <span>{{item.Ask | currency : 'USD': 'symbol' : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}</span>
+            <span style="display:none">{{item.VsClose | number : '.2-2'}}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

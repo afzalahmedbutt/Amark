@@ -1,0 +1,230 @@
+
+/* Show priority 6 at 1,120px (70em x 16px) */
+@media screen and (min-width: 70em) {
+  .ui-table .ui-table-tbody > tr > td {
+    /*width: 100% !important;*/
+    /*padding: 0 !important;*/
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .ui-table .ui-table-tbody > tr > td {
+    /*width: 100% !important;*/
+    padding: 0 !important;
+  }
+}
+
+@media screen and (min-width: 50em) {
+  .ui-table .ui-table-tbody > tr > td {
+    /*width: 100% !important;*/
+    padding: 0 !important;
+    
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .ui-table .ui-table-tbody > tr > td {
+    /*width: 100% !important;*/
+    padding: 0 !important;
+  }
+}
+
+.shipping-info {
+  color: #5C5B5B;
+}
+
+span.shipping-info:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #ff0000d9;
+}
+
+
+.boxshadow {
+  position: relative;
+  -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+  -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  padding: 10px;
+  background: white;
+}
+
+
+  .boxshadow::after {
+    content: '';
+    position: absolute;
+    z-index: -1; /* hide shadow behind image */
+    -webkit-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+    width: 70%;
+    left: 15%; /* one half of the remaining 30% */
+    height: 100px;
+    bottom: 0;
+  }
+
+
+.cardshadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.separator-hr {
+  margin: 0;
+}
+
+.last-control-group {
+  margin-bottom: -25px;
+}
+
+
+
+/*::ng-deep  .ui-table-tbody > tr {
+  line-height: 2em !important;
+  width: auto !important;
+}
+
+::ng-deep  .ui-table-tbody > tr > td {
+  width: auto !important;
+  padding-left: 0.06em !important;
+  padding-right: 0.06em !important;
+}*/
+
+/*::ng-deep #openPositionsTable .ui-table-auto-layout > .ui-table-wrapper {
+  overflow-x: auto;
+  overflow-y: scroll !important;
+  max-height: 450px !important;
+}*/
+
+div.trading-option-select {
+  padding-left: 0px;
+}
+
+/*::ng-deep .ui-table-scrollable-header-box {
+  margin-right: 17px !important;
+}
+
+::ng-deep .ui-table-scrollable-body {
+  margin-right: 17px !important;
+}*/
+
+/*::ng-deep .ui-table-thead tr {
+  line-height: 34px;
+}*/
+
+/*::ng-deep #openPositionsTable .ui-table .ui-table-thead > tr > th, .ui-table .ui-table-tbody > tr > td, .ui-table .ui-table-tfoot > tr > td {
+  padding-top: .5em !important;
+  padding-bottom: .5em !important;
+  padding-left: .18em !important;
+  padding-right: .18em !important;
+}*/
+
+.footer {
+  background: #eeeeee;
+  clear: both;
+  padding: 10px 0;
+  overflow: hidden;
+  /*margin-top: 20px;*/
+}
+
+.footer-buttons {
+  /*margin-top: 30px;*/
+  margin-top: 0;
+}
+
+
+.footer-button-bottom button {
+  min-width: 120px;
+  height: 40px;
+  border-radius: 25px;
+  font-weight: bold;
+  /*color:rgba(0, 0, 0, 0.3);*/
+}
+
+.modal-button button {
+  background: #eeeeee;
+}
+
+.tsearch-span {
+  margin-top: 10px !important;
+}
+
+.no-padding{
+  padding-left:0 !important;
+  padding-right: 0 !important;
+  margin-top:10px;
+  
+}
+
+.setParens::before {
+  content: '(';
+}
+
+.setParens::after {
+  content: ')';
+}
+
+
+/*Validations*/
+/*::ng-deep div.has-error input.form-control,
+div.has-error select.form-control,
+div.has-error textarea.form-control {
+  border: 1px solid red;
+}
+
+::ng-deep div.has-error button.ui-button {
+  border-right: 1px solid red;
+  border-bottom: 1px solid red;
+  border-top: 1px solid red;
+}
+
+::ng-deep div.has-error input.ui-inputtext {
+  border-right: none;
+  border-bottom: 1px solid red;
+  border-top: 1px solid red;
+  border-left: 1px solid red;
+}
+
+::ng-deep input.ng-invalid{
+  border:1px solid red;
+}*/
+
+div.is-required label:after {
+  content: " *";
+  /*vertical-align: sub;*/
+  color: red;
+}
+
+::ng-deep.bs-datepicker {
+  /*height: 250px;*/
+}
+
+/*::ng-deep .ng-invalid {
+  border-left : none !important;
+}*/
+
+/*::ng-deep span.ui-calendar.ui-calendar-w-btn input.ui-inputtext
+{
+  width: 100% !important;
+  height: 34px !important;
+  padding-left:3em !important;
+}
+
+::ng-deep span.ui-calendar.ui-calendar-w-btn button {
+  right: -2px;
+}*/
+
+/*::ng-deep .ui-datepicker select.ui-datepicker-year {
+  width: 42%;
+}*/
+
+
+
+
+
+
+
+
+
+
+

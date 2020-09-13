@@ -1,0 +1,46 @@
+<section class="services-section">
+  <div class="auto-container">
+    <div class="sec-title centered mb-0">
+      <h2>WHAT WOULD YOU LIKE TO DO TODAY?</h2>
+      <div class="title" *ngIf="!isContractAlreadyAccepted">
+        <div class="checkbox">
+          <label><input type="checkbox" name="chkContract" id="chkContract" [(ngModel)]="isContractChecked" (ngModelChange)="contractChecked()" style="margin-top: 7px;"><a>I agree with the term of services unconditionally </a></label><span id="serviceContractSpan" (click)="openModal(template)">(read)</span>
+        </div>
+      </div>
+      <div class="separator"></div>
+    </div>
+    <div [@fadeInOut] *ngIf="displayAlert">
+      <alert  type="danger">
+        <span>Please accept the terms of service before the next step.</span>
+      </alert>
+    </div>
+    <!-- Home -->
+    <div [@fadeInOut] class="testimonial-page-section row">
+      <div class="testimonials-row col-sm-10 col-sm-offset-1">
+        <div class="row clearfix">
+          <div class="col-sm-4">
+            <a (click)="navigateToRoute('buy')" class="theme-btn btn-style-three btn-block text-center">BUY</a>
+          </div>
+          <div class="col-sm-4">
+            <a (click)="navigateToRoute('sell')" class="theme-btn btn-style-three btn-block text-center">SELL</a>
+          </div>
+          <div class="col-sm-4">
+            <a (click)="navigateToRoute('tradingactivity')" class="theme-btn btn-style-three btn-block text-center">TRADING ACTIVITY</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{termsOfService.Title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" [innerHtml]="termsOfService.Body">
+    <!--{{termsOfService.Body}}-->
+  </div>
+</ng-template>

@@ -1,0 +1,92 @@
+<!--<form #f="ngForm" class="form-horizontal" novalidate>-->
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>Name 1:{{name1.valid}}</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" id="name1" name="name1" #name1="ngModel" type="text" [(ngModel)]="orderModel.Name1" required/>
+          <span *ngIf="!orderModel.IsEditable">{{orderModel.Name1}}</span>
+          <span class="errorMessage" *ngIf="isSubmitted && !name1.valid">
+            Name 1 is required
+          </span>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>Name 2:</label>
+        </div>
+        <div class="col-md-6">
+          <input  name="name2" type="text" [(ngModel)]="orderModel.Name2" />
+          <span *ngIf="!orderModel.IsEditable">{{orderModel.Name2}}</span>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>Address 1:</label>
+        </div>
+        <div class="col-md-6">
+          <input name="address1" #address1="ngModel" type="text" [(ngModel)]="orderModel.Address1" required/>
+          <span *ngIf="!orderModel.IsEditable">{{orderModel.Address1}}</span>
+          <span class="errorMessage" *ngIf="isSubmitted && !address1.valid">
+            Address 1 is required
+          </span>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>Address 2:</label>
+        </div>
+        <div class="col-md-6">
+          <input name="address2" type="text" [(ngModel)]="orderModel.Address2" />
+          <span *ngIf="!orderModel.IsEditable">{{orderModel.Address2}}</span>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>City:</label>
+        </div>
+        <div class="col-md-6">
+          <input  name="city" type="text" #city="ngModel" [(ngModel)]="orderModel.City" required/>
+          <span *ngIf="!orderModel.IsEditable">{{orderModel.City}}</span>
+          <span class="errorMessage" *ngIf="isSubmitted && !city.valid">
+            City is required
+          </span>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>State/province:</label>
+        </div>
+        <div class="col-md-6">
+          <input  name="state" #state="ngModel" type="text" [(ngModel)]="orderModel.State" required/>
+          <span *ngIf="!orderModel.IsEditable">{{orderModel.State}}</span>
+          <span class="errorMessage" *ngIf="isSubmitted && !state.valid">
+            State / Province is required
+          </span>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>Zip/postal code:</label>
+        </div>
+        <div class="col-md-6">
+          <input  name="zip" #zip="ngModel" type="text" [(ngModel)]="orderModel.Zip" required />
+          <span *ngIf="!orderModel.IsEditable">{{orderModel.Zip}}</span>
+          <span class="errorMessage" *ngIf="isSubmitted && !zip.valid">
+            Zip / postal code is required
+          </span>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>Country:</label>
+        </div>
+        <div class="col-md-6">
+          <input  name="country" #country="ngModel" type="text" [(ngModel)]="orderModel.Country" required/>
+          <span class="errorMessage" *ngIf="isSubmitted && !country.valid">
+            Country is required
+          </span>
+          <span *ngIf="!orderModel.IsEditable">{{orderModel.Country}}</span>
+        </div>
+      </div>
+    <!--</form>-->

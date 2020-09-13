@@ -1,0 +1,400 @@
+<div class="container" style="width:85%;padding:0;">
+  <h1 style="color: #C2C2C2;">Trading Activity</h1>
+
+  <div class="form-group">
+    <div class="col-xs-3 trading-option-select">
+      <select class="form-control" [(ngModel)]="tradingActivityOption" (ngModelChange)="onActivityOptionchange()">
+        <option value="0">Open Positions</option>
+        <option value="1">Trade History</option>
+      </select>
+    </div>
+  </div>
+  <br />
+
+  <!--<div id="openPositionsTable" *ngIf="tradingActivityOption == 0" style="margin-top:20px">-->
+    <div *ngIf="tradingActivityOption == 0" style="margin-top:20px">
+      <p-table #openPositionsTable [columns]="openPositionsCols" [paginator]="true" [responsive]="true" [rows]="15" [value]="openPositionsGridModelCopy.OpenModels"
+               [first]="first" autoLayout="true" [totalRecords]="openPositionsGridModelCopy.Total">
+        <!--[responsive]="true" [paginator]="true" [rows]="15">-->
+        <ng-template pTemplate="caption">
+          <div style="text-align:left">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText placeholder="Search Ticket#" size="39" [(ngModel)]="opTicketNoSearchTerm" (ngModelChange)="filterProducts()" style="margin-right:20px"> <!--(input)="filterProductsByticketNo($event.target.value, 'contains')"-->
+            <!--<input type="text" pInputText placeholder="Search Ticket#" size="39" style="margin-right:20px"(input)="filterProductsByticketNo($event.target.value, 'contains')" />-->
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText placeholder="Search Product Name" size="39"  [(ngModel)]="opProductNameSearchTerm" (ngModelChange)="filterProducts()" />  <!--(input)="filterProductsByName($event.target.value, 'contains')"-->
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <!--<td *ngFor="let col of columns">
+            <span class="ui-column-title">{{col.header}}</span>
+            {{rowData[col.field]}}
+          </td>-->
+
+            <td>
+              <span class="ui-column-title">{{openPositionsCols[0].header}}</span>
+              {{rowData.sdtTrade}}
+            </td>
+            <td>
+              <span class="ui-column-title">{{openPositionsCols[1].header}}</span>
+              {{rowData.sdtValue}}
+            </td>
+            <td>
+              <span class="ui-column-title">{{openPositionsCols[2].header}}</span>
+              {{rowData.sTicketNo}}
+            </td>
+
+            <td>
+              <span class="ui-column-title">{{openPositionsCols[3].header}}</span>
+              {{rowData.sTradeType}}
+            </td>
+
+            <td>
+              <span class="ui-column-title">{{openPositionsCols[4].header}}</span>
+              {{rowData.sProductDescription}}
+            </td>
+
+            <td>
+              <span class="ui-column-title">{{openPositionsCols[5].header}}</span>
+              {{rowData.iQuantity}}
+            </td>
+
+            <td>
+              <span class="ui-column-title">{{openPositionsCols[6].header}}</span>
+              {{rowData.decProductBalance}}
+            </td>
+
+            <td [ngClass]="{'setParens': rowData.decTotalAmount < 0}">
+              <span class="ui-column-title">{{openPositionsCols[7].header}}</span>
+              {{displayAbs(rowData.decCashBalance) | currency : 'USD'}}
+            </td>
+
+         
+            <td>
+              <span class="ui-column-title">{{openPositionsCols[8].header}}</span>
+              <ng-container *ngIf="rowData.sTrackingNumbers != '';else received">
+                <!--Generate Template-->
+                <u *ngFor="let trackingNumber of rowData.sTrackingNumbers">
+                  <a href="{{trackingNumber}}" target='_blank'>
+                    {{getTrackingLinkText(trackingNumber)}}
+                  </a>
+                </u>
+              </ng-container>
+              <ng-template #received>
+                <ng-container *ngIf="rowData.sReceived;else shipping">
+                  {{rowData.sReceived}}
+                </ng-container>
+              </ng-template>
+              <ng-template #shipping>
+                <ng-container *ngIf="(rowData.sShipping != 'Edit' && rowData.sShipping != 'New');else new">
+                  {{rowData.sShipping}}
+                </ng-container>
+              </ng-template>
+              <ng-template #new>
+                <ng-container *ngIf="rowData.sShipping == 'New';else edit">
+                  <span class="shipping-info" (click)="openAddEditInfoModal(updateinfotemplate,rowData)">Add Shipping Info</span>
+                </ng-container>
+              </ng-template>
+              <ng-template #edit>
+                <ng-container *ngIf="rowData.sShipping == 'Edit'">
+                  <span class="shipping-info" (click)="openAddEditInfoModal(updateinfotemplate,rowData)">Edit Shipping Info</span>
+                </ng-container>
+              </ng-template>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <footer class="footer footer-form">
+        <div *ngIf="openPositions" class="footer-buttons footer-button-bottom" style="background:#eeeeee;margin-top:0 !important">
+          <div class="row" style="margin-top:50px"></div>
+          <div class="row">
+            <div class="col-md-2">
+              <button (click)="refreshGrid(template)">Refresh</button>
+            </div>
+            <div class="col-md-2">
+              <button class="" (click)="exportToExcel()">Export To Excel</button>
+            </div>
+            <div class="col-md-2">
+              <button (click)="confirmOrderRequest()">Home</button>
+
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+
+    <div *ngIf="tradingActivityOption == 1" style="margin-top:20px">
+      <p-table [columns]="tradingHistoryCols" [value]="tradeHistoryModelCopy.OpenModels" autoLayout="true" [responsive]="true"
+               (onLazyLoad)="loadHistoryLazy($event)" [paginator]="true" [loading]="loading"
+               [first]="first"
+               [rows]="15" [totalRecords]="tradeHistoryModelCopy.Total"
+               #tradeHisotryTable>
+        <ng-template pTemplate="caption">
+          <div class="row">
+            <div class="col-md-2   form-group no-padding">
+              <label class="tsearch-span">View History from</label>
+            </div>
+            <div class="col-md-2 form-group no-padding" style="width:15%">
+              <input type="text"
+                     (click)="$event.preventDefault();$event.stopPropagation();false"
+                     pInputText
+                     placeholder="Start Date"
+                     class="form-control"
+                     #startDateDp="bsDatepicker"
+                     [(ngModel)]="startDate"
+                     [bsConfig]="datePickerConfig"
+                     triggers=""
+                     bsDatepicker>
+              <i (click)="startDateDp.toggle()" class="fa fa-calendar form-control-feedback" style="padding-top:10px;cursor:pointer;background:#999;pointer-events:auto"></i>
+            </div>
+            <div class="col-md-1 form-group no-padding" style="width:5%">
+              <label class="tsearch-span">to</label>
+            </div>
+            <div class="col-md-2 form-group no-padding">
+              <input type="text"
+                     (click)="$event.preventDefault();$event.stopPropagation();false"
+                     pInputText
+                     placeholder="End Date"
+                     class="form-control"
+                     #endDateDp="bsDatepicker"
+                     [(ngModel)]="endDate"
+                     [bsConfig]="datePickerConfig"
+                     triggers=""
+                     bsDatepicker>
+              <i (click)="endDateDp.toggle()" class="fa fa-calendar form-control-feedback" style="padding-top:10px;cursor:pointer;background:#999;pointer-events:auto"></i>
+            </div>
+            <div class="col-md-1 form-group footer-button-bottom">
+              <button type="button" style="margin-top:5px" (click)="searchTradingHistory(dpStartDate)">Search</button>
+            </div>
+          </div>
+          <!--<div style="text-align: right">-->
+          <div style="text-align:left">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText placeholder="Search Ticket#" size="39" [(ngModel)]="thTicketNoSearchTerm" (ngModelChange)="filterProducts()" style="margin-right:20px"> <!--(input)="filterProductsByticketNo($event.target.value, 'contains')"--> 
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText placeholder="Search Product Name" size="39" [(ngModel)]="thProductNameSearchTerm" (ngModelChange)="filterProducts()"  /> <!--(input)="filterProductsByName($event.target.value, 'contains')">-->
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td>
+              <span class="ui-column-title">{{tradingHistoryCols[0].header}}</span>
+              {{rowData.sdtTrade}}
+            </td>
+            <td>
+              <span class="ui-column-title">{{tradingHistoryCols[1].header}}</span>
+              {{rowData.sdtValue}}
+            </td>
+            <td>
+              <span class="ui-column-title">{{tradingHistoryCols[2].header}}</span>
+              {{rowData.sTicketNo}}
+            </td>
+
+            <td>
+              <span class="ui-column-title">{{tradingHistoryCols[3].header}}</span>
+              {{rowData.sTradeType}}
+            </td>
+
+            <td>
+              <span class="ui-column-title">{{tradingHistoryCols[4].header}}</span>
+              {{rowData.sProductDescription}}
+            </td>
+
+            <td>
+              <span class="ui-column-title">{{tradingHistoryCols[5].header}}</span>
+              {{rowData.iQuantity}}
+            </td>
+
+            <td>
+              <span class="ui-column-title">{{tradingHistoryCols[6].header}}</span>
+              {{rowData.decPrice | currency : 'USD'}}
+            </td>
+
+            <td [ngClass]="{'setParens': rowData.decTotalAmount < 0}">
+              <span class="ui-column-title">{{tradingHistoryCols[7].header}}</span>
+              {{displayAbs(rowData.decTotalAmount) | currency : 'USD'}}
+            </td>
+            <!--<td>
+            <span class="ui-column-title">{{tradingHistoryCols[8].header}}</span>
+            <span>{{rowData.sReceived}}</span>
+            <span>{{rowData.sShipping}}</span>
+            <span class="shipping-info" (click)="openUpdateInfoModal(template)">Update Shipping Info</span>
+          </td>-->
+            <td>
+              <span class="ui-column-title">{{tradingHistoryCols[8].header}}</span>
+              <ng-container *ngIf="rowData.sTrackingNumbers != '';else received">
+                <u *ngFor="let trackingNumber of rowData.sTrackingNumbers">
+                  <a href="{{trackingNumber}}" target='_blank'>
+                    {{getTrackingLinkText(trackingNumber)}}
+                  </a>
+                </u>
+              </ng-container>
+              <!--Generate template-->
+              <ng-template #received>
+                <ng-container *ngIf="rowData.sReceived;else shipping">
+                  {{rowData.sReceived}}
+                </ng-container>
+                
+              </ng-template>
+              <ng-template #shipping>
+                <ng-container *ngIf="(rowData.sShipping != 'Edit' && rowData.sShipping != 'New');else new">
+                  {{rowData.sShipping}}
+                </ng-container>
+              </ng-template>
+              <ng-template #new>
+                <ng-container *ngIf="rowData.sShipping == 'New';else edit">
+                  <span class="shipping-info" (click)="openAddEditInfoModal(updateinfotemplate,rowData)">Add Shipping Info</span>
+                </ng-container>
+              </ng-template>
+              <ng-template #edit>
+                <ng-container *ngIf="rowData.sShipping == 'Edit'">
+                  <span class="shipping-info" (click)="openAddEditInfoModal(updateinfotemplate,rowData)">Edit Shipping Info</span>
+                </ng-container>
+              </ng-template>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <footer class="footer footer-form">
+        <div *ngIf="openPositions || gridOpenModel?.OpenModels" class="footer-buttons footer-button-bottom" style="background:#eeeeee;margin-top:0 !important">
+          <div class="row" style="margin-top:50px"></div>
+          <div class="row">
+            <div class="col-md-2">
+              <button (click)="refreshGrid()">Refresh</button>
+            </div>
+            <div class="col-md-2">
+              <button class="" (click)="exportToExcel()">Export To Excel</button>
+            </div>
+            <div class="col-md-2">
+              <button routerLink="/">Home</button>
+
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+
+  </div>
+
+<ng-template #updateinfotemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Drop Ship Instructions</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <span>Ticket #: {{selectedRow.sTicketNo}}</span>
+    </div>
+    <hr />
+    <form #f="ngForm" class="form-horizontal" novalidate
+          (ngSubmit)="f.form.valid ? confirmShippingInfo() :
+          (!name1.valid && showErrorAlert('Name1 is required', 'Please enter a valid Name1'));
+          (!address1.valid && showErrorAlert('Address1 is required', 'Please enter a valid Address1'));
+          (!city.valid && showErrorAlert('City is required', 'Please enter a valid City'));
+          (!state.valid && showErrorAlert('State is required', 'Please enter valid State'));
+          (!zip.valid && showErrorAlert('Zipcode is required', 'Please enter a valid Zipcode'));
+          (!country.valid && showErrorAlert('Country is required', 'Please enter a valid Country'))">
+      <div class="form-group has-feedback">
+        <label for="name1" class="col-sm-3 control-label">Name 1</label>
+        <div class="col-sm-9" [ngClass]="{'has-success': f.submitted && name1.valid, 'has-error' : f.submitted && !name1.valid}">
+          <input type="text" class="form-control" id="name1" name="name1" [(ngModel)]="shippingInfo.sShippingName1" #name1="ngModel" placeholder="Name 1" required>
+          <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': name1.valid, 'glyphicon-remove' : !name1.valid}" aria-hidden="true"></span>
+          <span class="errorMessage" *ngIf="f.submitted && !name1.valid">
+            Name 1 is required
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name1" class="col-sm-3 control-label">Name 2</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="name2" name="name2" [(ngModel)]="shippingInfo.sShippingName2" #name2="ngModel" placeholder="Name 2">
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <label for="address1" class="col-sm-3 control-label">Address 1</label>
+        <div class="col-sm-9" [ngClass]="{'has-success': f.submitted && address1.valid, 'has-error' : f.submitted && !address1.valid}">
+          <input type="text" class="form-control" id="address1" name="address1" [(ngModel)]="shippingInfo.sShippingAddress1" #address1="ngModel" placeholder="Address 1" required>
+          <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': address1.valid, 'glyphicon-remove' : !address1.valid}" aria-hidden="true"></span>
+          <span class="errorMessage" *ngIf="f.submitted && !address1.valid">
+            Address 1 is required
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address1" class="col-sm-3 control-label">Address 2</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="address2" name="address2" [(ngModel)]="shippingInfo.sShippingAddress2" #address2="ngModel" placeholder="Address 2">
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <label for="name1" class="col-sm-3 control-label">City</label>
+        <div class="col-sm-9" [ngClass]="{'has-success': f.submitted && city.valid, 'has-error' : f.submitted && !city.valid}">
+          <input type="text" class="form-control" id="city" name="city" [(ngModel)]="shippingInfo.sShippingCity" #city="ngModel" placeholder="City" required>
+          <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': city.valid, 'glyphicon-remove' : !city.valid}" aria-hidden="true"></span>
+          <span class="errorMessage" *ngIf="f.submitted && !city.valid">
+            City is required
+          </span>
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <label for="name1" class="col-sm-3 control-label">State / Province</label>
+        <div class="col-sm-9" [ngClass]="{'has-success': f.submitted && state.valid, 'has-error' : f.submitted && !state.valid}">
+          <input type="text" class="form-control" id="state" name="state" [maxLength]="3" [(ngModel)]="shippingInfo.sShippingState" #state="ngModel" placeholder="State / province" required uppercase>
+          <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': state.valid, 'glyphicon-remove' : !state.valid}" aria-hidden="true"></span>
+          <span class="errorMessage" *ngIf="f.submitted && !state.valid">
+            State / Province is required
+          </span>
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <label for="name1" class="col-sm-3 control-label">Zip / postal code:</label>
+        <div class="col-sm-9" [ngClass]="{'has-success': f.submitted && zip.valid, 'has-error' : f.submitted && !zip.valid}">
+          <input type="text" class="form-control" id="zip" name="zip" [maxLength]="5" [(ngModel)]="shippingInfo.sShippingZipCode" #zip="ngModel" placeholder="Zip / postal code" required>
+          <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': zip.valid, 'glyphicon-remove' : !zip.valid}" aria-hidden="true"></span>
+          <span class="errorMessage" *ngIf="f.submitted && !zip.valid">
+            Zip / postal code is required
+          </span>
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <label for="name1" class="col-sm-3 control-label">Country</label>
+        <div class="col-sm-9" [ngClass]="{'has-success': f.submitted && country.valid, 'has-error' : f.submitted && !country.valid}">
+          <input type="text" class="form-control" [maxLength]="2" id="country" name="country" [(ngModel)]="shippingInfo.sShippingCountry" #country="ngModel" placeholder="Country" required uppercase>
+          <span *ngIf="f.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': country.valid, 'glyphicon-remove' : !country.valid}" aria-hidden="true"></span>
+          <span class="errorMessage" *ngIf="f.submitted && !country.valid">
+            Country is required
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group modal-button footer-button-bottom">
+        <div class="col-sm-offset-6 col-sm-3">
+          <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cancel</button>
+        </div>
+        <div class="col-sm-3">
+          <button type="submit" class="btn btn-default">Confirm</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+

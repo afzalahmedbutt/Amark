@@ -1,0 +1,58 @@
+<div class="inner-box">
+  <div class="lower-section">
+    <div class="row">
+      <div class="col-sm-5">
+        <h2 class="text-bold mt-3">Content Management</h2>
+      </div>
+      <!--<div class="col-sm-7 text-right">
+      <a (click)="addUser(addEditUser)" class="theme-btn btn-style-three admin-btn">Add User</a>
+      <a href="Javascript:void(0);" class="theme-btn btn-style-three admin-btn">User Role</a>
+    </div>-->
+    </div>
+    <hr class="mt-2" />
+    <form role="form" #myForm="ngForm" accept-charset="UTF-8" novalidate>
+      <div class="form-group has-feedback">
+        <div class="row">
+          <div class="col-md-4">
+            <select class="form-control" name="ddlContent" [(ngModel)]="selectedContent" (ngModelChange)="onContetChange($event)">
+              <!--<option value="">Select a Title</option>-->
+              <option *ngFor="let content of allContent" [ngValue]="content">
+                {{content.Title}}
+              </option>
+            </select>
+          </div>
+          <button class="btn btn-primary" (click)="addNewContent()" type="button">Add New</button>
+          <!--<button class="btn btn-primary" (click)="cancelNewContent()" type="button">Cancel</button>-->
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <div class="row">
+          <div class="col-md-4">
+            <input type="text" id="content-title" name="title" placeholder="Enter Title" class="form-control" [(ngModel)]="selectedContent.Title" #title="ngModel" required />
+            <!--<span *ngIf="myForm.submitted" class="glyphicon form-control-feedback" [ngClass]="{'glyphicon-ok ': title.valid, 'glyphicon-remove' : !title.valid}" aria-hidden="true"></span>-->
+            <span class="errorMessage" *ngIf="myForm.submitted && !title.valid">
+              Title is required
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback"
+           [ngClass]="{ 'has-error': myckeditor.invalid && myckeditor.touched }">
+        <ckeditor [(ngModel)]="selectedContent.Description"
+                  #myckeditor="ngModel"
+                  name="myckeditor"
+                  required
+                  [config]="ckeConfig"
+                  debounce="500">
+          <!--(change)="onChange($event)">-->
+        </ckeditor>
+        <div *ngIf="myckeditor.invalid && myForm.submitted" class="help-block">
+          <span class="errorMessage">
+            Description is required.
+          </span>
+        </div>
+      </div>
+      <button [disabled]="myForm.invalid" (click)="saveContent()" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>

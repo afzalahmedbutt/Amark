@@ -1,0 +1,92 @@
+<div *ngIf="prefix != 'sticky'" class="spotprice-header pt-1 pb-0">
+  <div class="container-fluid">
+    <div class="row text-left text-bold line-height-md text-shadow pt-1 font-opensans">
+      <div class="col-xs-2">
+        <div class="logo"><a routerLink="/"><img [src]="appLogo" alt="" title=""></a></div>
+      </div>
+      <!--<div class="col-sm-10">-->
+      <div *ngIf="spotPriceViewModel?.Spots">
+        <!--<div class="col-md-12">-->
+        <div *ngFor="let item of spotPriceViewModel.Spots;let i = index" class="col-xs-2 text-left line-height-md text-shadow font-opensans">
+          <span class="text-black font-spot-header">{{getMetalNameFromComCode(item.ComCode)}}&nbsp;&nbsp;&nbsp;</span>
+          <ng-container *ngIf="item.Ask > item.VsClose;else equal">
+            <span class="text-green font-md">
+              +{{(item.Ask - item.VsClose) | number : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}
+              <span class="glyphicon glyphicon-triangle-top text-green"></span>
+            </span>
+          </ng-container>
+
+          <ng-template #equal>
+            <ng-container *ngIf="item.Ask == item.VsClose;else negative">
+              <span class="text-grey font-md">
+                {{(item.Ask - item.VsClose) | number : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}
+                <!--<span class="glyphicon glyphicon-triangle-bottom text-red"></span>-->
+              </span>
+            </ng-container>
+          </ng-template>
+
+          <ng-template #negative>
+            <ng-container *ngIf="item.Ask < item.VsClose">
+              <span class="text-red font-md">
+                {{(item.Ask - item.VsClose) | number : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}
+                <span class="glyphicon glyphicon-triangle-bottom text-red"></span>
+              </span>
+            </ng-container>
+          </ng-template>
+          <div class="text-muted">{{item.Bid | currency : 'USD': 'symbol' : (item.ComCode != 'S' ? '.2-2' : '.4-4')}} / {{item.Ask | currency : 'USD': 'symbol' : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}</div>
+        </div>
+      </div>
+      <!--</div>-->
+      <div class="col-xs-12 col-sm-2 text-right pt-3">
+        <div class="div-spot btn-group btn-spotprice-group w-100" id="status">
+          <input id="{{prefix}}_NY" type="radio" name="{{prefix}}_radio" value="NY" (change)="vsWhichClicked()" [(ngModel)]="spotPriceViewModel.VsWhich" />
+          <label class="btn btn-default text-bold font-opensans btn-on w-50 font-sm" [ngClass]="{'active':spotPriceViewModel.VsWhich == 'NY'}" for="{{prefix}}_NY">NY Close</label>
+          <input id="{{prefix}}_PM" type="radio" name="{{prefix}}_radio" value="PM" (change)="vsWhichClicked()" [(ngModel)]="spotPriceViewModel.VsWhich" />
+          <label style="margin-left:-1px" class="btn btn-default text-bold font-opensans btn-on w-50 font-sm" [ngClass]="{'active':spotPriceViewModel.VsWhich == 'PM'}" for="{{prefix}}_PM">PM Fix</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="prefix == 'sticky'" class="spotprice-header py-1">
+  <div class="auto-container">
+    <div class="row">
+      <div class="col-sm-10">
+        <div class="row" *ngIf="spotPriceViewModel?.Spots">
+          <!--<div class="col-md-12">-->
+          <div *ngFor="let item of spotPriceViewModel.Spots;let i = index" class="col-xs-3 text-left line-height-md text-shadow font-opensans">
+            <span class="text-black text-bold font-md">{{getMetalNameFromComCode(item.ComCode)}}&nbsp;&nbsp;&nbsp;</span>
+            <ng-container *ngIf="item.Ask > item.VsClose;else negative">
+              <span class="text-green text-bold">
+                +{{(item.Ask - item.VsClose) | number : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}
+                <span class="glyphicon glyphicon-triangle-top text-green"></span>
+              </span>
+            </ng-container>
+            <ng-template #negative>
+              <ng-container *ngIf="item.Ask <= item.VsClose">
+                <span class="text-red text-bold">
+                  {{(item.Ask - item.VsClose) | number : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}
+                  <span class="glyphicon glyphicon-triangle-bottom text-red"></span>
+                </span>
+              </ng-container>
+            </ng-template>
+            <div class="text-muted">{{item.Bid | currency : 'USD': 'symbol' : (item.ComCode != 'S' ? '.2-2' : '.4-4')}} / {{item.Ask | currency : 'USD': 'symbol' : (item.ComCode != 'S' ? '.2-2' : '.4-4')}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-2 text-right pt-2">
+        <div class="div-spot btn-group btn-spotprice-group w-100" id="status">
+          <input id="{{prefix}}_NY" type="radio" name="{{prefix}}_radio" value="NY" (change)="vsWhichClicked()" [(ngModel)]="spotPriceViewModel.VsWhich" />
+          <label class="btn btn-default text-bold font-opensans btn-on w-50 font-sm" [ngClass]="{'active':spotPriceViewModel.VsWhich == 'NY'}" for="{{prefix}}_NY">NY Close</label>
+          <input id="{{prefix}}_PM" type="radio" name="{{prefix}}_radio" value="PM" (change)="vsWhichClicked()" [(ngModel)]="spotPriceViewModel.VsWhich" />
+          <label style="margin-left:-1px" class="btn btn-default text-bold font-opensans btn-on w-50 font-sm" [ngClass]="{'active':spotPriceViewModel.VsWhich == 'PM'}" for="{{prefix}}_PM">PM Fix</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,33 @@
+
+.setParens::before {
+  content: '(';
+}
+
+.setParens::after {
+  content: ')';
+  
+}
+
+::ng-deep .ui-table .ui-table-tbody > tr > td.setParens{
+  padding-right:0 !important;
+  padding-left:.25em !important;
+}
+
+.tooltip {
+  background-color: #5c5c5b !important;
+}
+
+.tr-quantity-entered {
+  background: antiquewhite !important;
+}
+
+.message-error {
+  font-family: Verdana,Arial,sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: red;
+}
+
+
+
+

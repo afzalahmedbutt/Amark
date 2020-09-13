@@ -1,0 +1,98 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{17070A46-661F-4A01-8B84-CE9C59173779}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15E38D17-ECED-49D4-A161-38EC79E795E9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPortal.Core", "src\TradingPortal.Core\TradingPortal.Core.csproj", "{27374718-7F24-40D1-BFAD-01F9DE54966E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPortal.Infrastructure", "src\TradingPortal.Infrastructure\TradingPortal.Infrastructure.csproj", "{7BCD394D-6511-4693-AB41-6E2319EFA921}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPortal.Business", "src\TradingPortal.Business\TradingPortal.Business.csproj", "{2800E926-5CB7-4BD1-92F7-B3156D25C8D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsServiceEndPoint", "src\WindowsServiceEndPoint\WindowsServiceEndPoint.csproj", "{45C14AF4-1062-43AD-A7B7-614DA72F05D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPortal.Web", "src\TradingPortal.Web\TradingPortal.Web.csproj", "{E5F6C30F-7F6E-40EF-93ED-3EF553F7168E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{251133BC-74DD-4095-B6F9-2B415BD9E85D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{A57D4934-1105-4DB9-B806-38CBE57082D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{EC78993F-02AF-4CAA-96A0-1B7C059FBB3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27374718-7F24-40D1-BFAD-01F9DE54966E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27374718-7F24-40D1-BFAD-01F9DE54966E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27374718-7F24-40D1-BFAD-01F9DE54966E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27374718-7F24-40D1-BFAD-01F9DE54966E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BCD394D-6511-4693-AB41-6E2319EFA921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BCD394D-6511-4693-AB41-6E2319EFA921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BCD394D-6511-4693-AB41-6E2319EFA921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BCD394D-6511-4693-AB41-6E2319EFA921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2800E926-5CB7-4BD1-92F7-B3156D25C8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2800E926-5CB7-4BD1-92F7-B3156D25C8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2800E926-5CB7-4BD1-92F7-B3156D25C8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2800E926-5CB7-4BD1-92F7-B3156D25C8D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45C14AF4-1062-43AD-A7B7-614DA72F05D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45C14AF4-1062-43AD-A7B7-614DA72F05D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45C14AF4-1062-43AD-A7B7-614DA72F05D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45C14AF4-1062-43AD-A7B7-614DA72F05D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5F6C30F-7F6E-40EF-93ED-3EF553F7168E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5F6C30F-7F6E-40EF-93ED-3EF553F7168E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5F6C30F-7F6E-40EF-93ED-3EF553F7168E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5F6C30F-7F6E-40EF-93ED-3EF553F7168E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{27374718-7F24-40D1-BFAD-01F9DE54966E} = {251133BC-74DD-4095-B6F9-2B415BD9E85D}
+		{7BCD394D-6511-4693-AB41-6E2319EFA921} = {A57D4934-1105-4DB9-B806-38CBE57082D0}
+		{2800E926-5CB7-4BD1-92F7-B3156D25C8D8} = {A57D4934-1105-4DB9-B806-38CBE57082D0}
+		{45C14AF4-1062-43AD-A7B7-614DA72F05D6} = {A57D4934-1105-4DB9-B806-38CBE57082D0}
+		{E5F6C30F-7F6E-40EF-93ED-3EF553F7168E} = {EC78993F-02AF-4CAA-96A0-1B7C059FBB3D}
+		{251133BC-74DD-4095-B6F9-2B415BD9E85D} = {17070A46-661F-4A01-8B84-CE9C59173779}
+		{A57D4934-1105-4DB9-B806-38CBE57082D0} = {17070A46-661F-4A01-8B84-CE9C59173779}
+		{EC78993F-02AF-4CAA-96A0-1B7C059FBB3D} = {17070A46-661F-4A01-8B84-CE9C59173779}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46C86587-3EE9-4CF2-966A-9160EF864A31}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://sm-tfs01:8080/tfs/apmicollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = src\\TradingPortal.Business\\TradingPortal.Business.csproj
+		SccProjectTopLevelParentUniqueName1 = AMarkTradingPortal.sln
+		SccProjectName1 = src/TradingPortal.Business
+		SccLocalPath1 = src\\TradingPortal.Business
+		SccProjectUniqueName2 = src\\TradingPortal.Core\\TradingPortal.Core.csproj
+		SccProjectTopLevelParentUniqueName2 = AMarkTradingPortal.sln
+		SccProjectName2 = src/TradingPortal.Core
+		SccLocalPath2 = src\\TradingPortal.Core
+		SccProjectUniqueName3 = src\\TradingPortal.Infrastructure\\TradingPortal.Infrastructure.csproj
+		SccProjectTopLevelParentUniqueName3 = AMarkTradingPortal.sln
+		SccProjectName3 = src/TradingPortal.Infrastructure
+		SccLocalPath3 = src\\TradingPortal.Infrastructure
+		SccProjectUniqueName4 = src\\TradingPortal.Web\\TradingPortal.Web.csproj
+		SccProjectTopLevelParentUniqueName4 = AMarkTradingPortal.sln
+		SccProjectName4 = src/TradingPortal.Web
+		SccLocalPath4 = src\\TradingPortal.Web
+		SccProjectUniqueName5 = src\\WindowsServiceEndPoint\\WindowsServiceEndPoint.csproj
+		SccProjectTopLevelParentUniqueName5 = AMarkTradingPortal.sln
+		SccProjectName5 = src/WindowsServiceEndPoint
+		SccLocalPath5 = src\\WindowsServiceEndPoint
+	EndGlobalSection
+EndGlobal

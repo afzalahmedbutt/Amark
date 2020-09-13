@@ -1,0 +1,72 @@
+<div *ngIf="!orderModel.IsEditable" class="review-summary">
+  <div class="row">
+    <div class="col-xs-offset-7 col-xs-2 commodity-name">
+      <span class="summary-commodity">GOLD:</span>
+    </div>
+    <div class="col-xs-1">
+      {{orderModel.DecGoldTotalQuantity | number : '.5-5'}}
+    </div>
+    <div class="col-xs-2 commodity-total">
+      {{orderModel.DecGoldTotal | currency : 'USD'}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-7 col-xs-2 commodity-name">
+      <span class="summary-commodity">SILVER:</span>
+    </div>
+    <div class="col-xs-1">
+      {{orderModel.DecSilverTotalQuantity | number : '.5-5'}}
+    </div>
+    <div class="col-xs-2 commodity-total">
+      {{orderModel.DecSilverTotal | currency : 'USD'}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-7 col-xs-2 commodity-name">
+      <span class="summary-commodity">Platinum:</span>
+    </div>
+    <div class="col-xs-1">
+      {{orderModel.DecPlatinumTotalQuantity | number : '.5-5'}}
+    </div>
+    <div class="col-xs-2 commodity-total">
+      {{orderModel.DecPlatinumTotal | currency : 'USD'}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-7 col-xs-2 commodity-name">
+      <span class="summary-commodity">PALLADIUM:</span>
+    </div>
+    <div class="col-xs-1">
+      {{orderModel.DecPalladiumTotalQuantity | number : '.5-5'}}
+    </div>
+    <div class="col-xs-2 commodity-total">
+      {{orderModel.DecPalladiumTotal | currency : 'USD'}}
+    </div>
+  </div>
+  <div *ngIf="orderModel.SmallOrderCharge != null && orderModel.SmallOrderCharge != '' && orderModel.SmallOrderCharge != '0.00000'" class="row">
+    <div class="col-xs-offset-7 col-xs-2 commodity-name">
+      <span class="summary-commodity">SmallOrderCharge:</span>
+    </div>
+    <div class="col-xs-1">
+
+    </div>
+    <div class="col-xs-2 commodity-total">
+      {{orderModel.SmallOrderCharge | currency : 'USD'}}
+
+    </div>
+  </div>
+  <hr />
+
+  <div class="row">
+    <div class="col-xs-offset-7 col-xs-2 commodity-name">
+      <span class="summary-commodity">TOTAL:</span>
+    </div>
+    <div class="col-xs-1">
+      {{orderModel.DecTotalQuantity | number : '.5-5'}}
+    </div>
+    <div class="col-xs-2 commodity-total">
+      {{orderModel.DecTotal | currency : 'USD'}}
+
+    </div>
+  </div>
+</div>

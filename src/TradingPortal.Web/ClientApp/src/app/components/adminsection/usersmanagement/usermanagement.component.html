@@ -1,0 +1,287 @@
+<div class="content-side col-md-12 col-sm-12 col-xs-12">
+  <!--Services Single-->
+  <div class="services-single">
+    <div class="inner-box">
+      <div class="lower-section">
+        <div class="row">
+          <div class="col-sm-5">
+            <h2 class="text-bold mt-3">Users</h2>
+          </div>
+          <div class="col-sm-7 text-right">
+            <a (click)="addUser(addEditUser)" class="theme-btn btn-style-three admin-btn">Add User</a>
+            <a href="Javascript:void(0);" class="theme-btn btn-style-three admin-btn">User Role</a>
+          </div>
+        </div>
+        <hr class="mt-2" />
+        <div class="text">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h3 class="text-bold text-muted my-0">Search Users</h3>
+              <hr class="mt-2" />
+              <div class="search-form">
+                <div class="apointment-form admin-form">
+                  <!--Call Back Form-->
+                  <form method="post" action="contact.html">
+                    <div class="row clearfix">
+                      <div class="form-group col-md-3 col-sm-6 col-xs-12">
+                        <input type="text" name="email" [(ngModel)]="command.Email" placeholder="Email" required="">
+                      </div>
+                      <div class="form-group col-md-3 col-sm-6 col-xs-12">
+                        <input type="text" name="firstname" [(ngModel)]="command.FirstName" placeholder="First name" required="">
+                      </div>
+                      <div class="form-group col-md-3 col-sm-6 col-xs-12">
+                        <input type="text" name="lastname" [(ngModel)]="command.LastName" placeholder="Last name" required="">
+                      </div>
+
+                      <div class="form-group col-md-3 col-sm-6 col-xs-12">
+                        <input type="text" name="companyname" [(ngModel)]="command.Company" placeholder="Company name" required="">
+                      </div>
+
+                      <div class="form-group col-xs-12">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <label class="label font-lg text-muted pl-0 pr-3">Roles:</label>
+
+                            <label *ngFor="let role of allRoles;let i = index" class="checkbox-inline">
+                              <input name="chk_{{i}}" type="checkbox" value="{{role.Id}}" [(ngModel)]="role.checked">{{role.Name}}
+                            </label>
+
+
+                            <!--<label class="checkbox-inline">
+                              <input type="checkbox" value="">Administrator
+                            </label>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="">Vendor
+                            </label>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="">MTS
+                            </label>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="">Online Trading
+                            </label>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="">Registered
+                            </label>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="">Guest
+                            </label>-->
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-12 col-sm-12 col-xs-12 text-right">
+                        <button class="theme-btn btn-style-one admin-btn" type="submit" name="submit-form" (click)="searchUsers()" style="width:auto;">Search</button>
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <hr class="mt-2" />
+            <p-table #customersTable [loading]="loading" [columns]="columns" [lazy]="true" (onLazyLoad)="loadUsersLazy($event)" [paginator]="true" [rows]="15"
+                     [responsive]="true" [value]="rows"
+                     autoLayout="true" [totalRecords]="total">
+              <!--[responsive]="true" [paginator]="true" [rows]="15">-->
+
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns">
+                    {{col.header}}
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+
+                  <td>
+                    {{rowData.Id}}
+                  </td>
+                  <td>
+
+                    {{rowData.Email}}
+                  </td>
+                  <td>
+
+                    {{rowData.FullName}}
+                  </td>
+
+                  <td>
+
+                    {{rowData.Roles}}
+                  </td>
+
+                  <td>
+
+                    {{rowData.Company}}
+                  </td>
+
+                  <td>
+
+                    {{rowData.IsActive}}
+                  </td>
+
+                  <td>
+
+                    {{rowData.CreatedOnUtc}}
+                  </td>
+                  <td>
+
+                    {{rowData.LastActivityDateUtc}}
+                  </td>
+                  <td>
+                    <a class="btn btn-link" href="javascript:;" (click)="editUser(rowData.Id,addEditUser)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+                  </td>
+
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="summary">
+                Displaying {{tableSummary}}
+              </ng-template>
+            </p-table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #addEditUser>
+  <!--<div class="modal fade custom-modal" id="askmodal" role="dialog">-->
+    <!--<div class="modal-dialog modal-lg">-->
+      <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="row">
+        <h4 class="col-sm-8 text-uppercase text-bold">Add User</h4>
+
+      </div>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body font-opensans">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="apointment-form admin-form">
+            <form autocomplete="off" #f="ngForm" class="col-sm-10 col-sm-offset-1" novalidate
+                  (ngSubmit)="f.form.valid ? saveUser(f) :
+          (!password.valid && showErrorAlert('Password is required', 'Please enter a valid Password'));
+          (!firstname.valid && showErrorAlert('First Name is required', 'Please enter a valid First Name'));
+          (!lastname.valid && showErrorAlert('Last Name is required', 'Please enter a valid Last Name'));
+          (!companyname.valid && showErrorAlert('Company Name is required', 'Please enter valid Company Name'));
+          (!tradingpartnerno.valid && showErrorAlert('Trading Partner No is required', 'Please enter a valid Trading Partner No'));
+          (!amarktpapikey.valid && showErrorAlert('TP API Key is required', 'Please enter a valid TP API Key'))">
+              <!--(!ddlRoles.valid && showErrorAlert('Zipcode is required', 'Please enter a valid Zipcode'))">-->
+              <div class="row clearfix">
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" autocomplete="off" name="email" [(ngModel)]="selectedUser.Email" placeholder="Email" #email="ngModel" required>
+                  <span class="errorMessage" *ngIf="f.submitted && !email.valid">
+                    Email is required
+                  </span>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <input type="password" autocomplete="off" name="password" [(ngModel)]="selectedUser.Password" placeholder="Password" required #password="ngModel">
+                  <span class="errorMessage" *ngIf="f.submitted && !password.valid">
+                    Password is required
+                  </span>
+                </div>
+
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="firstname" placeholder="First name" [(ngModel)]="selectedUser.FirstName" required #firstname="ngModel">
+                  <span class="errorMessage" *ngIf="f.submitted && !firstname.valid">
+                    First Name is required
+                  </span>
+                </div>
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="lastname" placeholder="Last name" [(ngModel)]="selectedUser.LastName" required #lastname="ngModel">
+                  <span class="errorMessage" *ngIf="f.submitted && !lastname.valid">
+                    Last Name is required
+                  </span>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="companyname" placeholder="Company name" [(ngModel)]="selectedUser.CompanyName" required #companyname="ngModel">
+                  <span class="errorMessage" *ngIf="f.submitted && !companyname.valid">
+                    Company Name is required
+                  </span>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="tradingpartnerno" placeholder="Amark Trading Partner #" [(ngModel)]="selectedUser.AmarkTradingPartnerNumber" required #tradingpartnerno="ngModel">
+                  <span class="errorMessage" *ngIf="f.submitted && !password.valid">
+                    Password is required
+                  </span>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="amarktpapikey" placeholder="Amark TP API Key" [(ngModel)]="selectedUser.AmarkTPAPIKey" required #amarktpapikey="ngModel">
+                  <span class="errorMessage" *ngIf="f.submitted && !amarktpapikey.valid">
+                    TP API is required
+                  </span>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12 add-user-dropdown">
+                  <ng-multiselect-dropdown [placeholder]="'Select Roles'"
+                                           name="ddlRoles"
+                                           #ddlRoles="ngModel"
+                                           [data]="allRoleNames"
+                                           [(ngModel)]="selectedUser.Roles"
+                                           [settings]="dropdownSettings">
+                    <!--(onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)">-->
+                  </ng-multiselect-dropdown>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12" style="padding-top:12px">
+                  <label>
+                    <input type="checkbox" name="isactive" #isactive="ngModel" [(ngModel)]="selectedUser.Active"> Is Active
+                  </label>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12 mb-0 mt-3">
+                  <label>
+                    <input type="checkbox" name="istaxexempt" #istaxexempt="ngModel" [(ngModel)]="selectedUser.IsTaxExempt"> Is Tax exempt
+                  </label>
+                </div>
+
+                <!--<div class="form-group col-md-6 col-sm-6 col-xs-12" style="padding-top:12px">
+                  <select [(ngModel)]="selectedUser.VendorId">
+                    <option value="">Select Vendor</option>
+                    <option *ngFor="let v of vendors" [ngValue]="u.Value">{{v.Name}}</option>
+                  </select>
+                  
+                </div>-->
+
+
+                <div class="form-group col-xs-12">
+                  <textarea class="form-control" name="admincomments" #admincomments="ngModel" placeholder="Admin Comments" [(ngModel)]="selectedUser.AdminComment" style="height:100px;"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="theme-btn btn-style-two admin-btn" name="submit-form" style="width:auto;" (click)="modalRef.hide()">Cancel</button>
+                <button class="theme-btn btn-style-one admin-btn" type="submit" name="submit-form" style="width:auto;" [disabled]="isSaveDisabled">Save</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+    <!--</div>-->
+  <!--</div>-->
+
+</ng-template>
+
+
+<!--</div>
+</div>-->

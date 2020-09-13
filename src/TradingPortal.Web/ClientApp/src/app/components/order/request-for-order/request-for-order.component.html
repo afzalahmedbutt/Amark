@@ -1,0 +1,80 @@
+<div class="container" style="width:80%;min-height:60vh">
+
+  <!--Order Request Page Header-->
+  <header class="pageHeader" *ngIf="orderModel?.IsEditable">
+    {{orderItems.IsEditable}}
+    <h3 *ngIf="!isSell">Buy</h3>
+    <h3 *ngIf="isSell">Sell</h3>
+    <p>
+      <span style="font-size: larger;color: #989898;"><strong>Please add the products below.</strong></span>
+    </p>
+    <p class="marginTop-30">All Products must be for the same Product Type on an order. Please order different product types on separate requests.</p>
+  </header>
+
+  <!--Order Confirmation Page Header-->
+  <header class="pageHeader" *ngIf="orderModel && orderModel?.IsEditable == false">
+    <h3 *ngIf="!isSell">Review Buy Order</h3>
+    <h3 *ngIf="isSell">Review Sell Order</h3>
+    <p>
+      <span style="font-size: larger;color: #989898;"><strong>Please review below. To process the order, click "CONFIRM" before the time limit expires. To update the prices and reset the time limit for review, click "REQUOTE".</strong></span>
+    </p>
+    <p *ngIf="orderModel.MultipleTransactionGroupsPresent" class="marginTop-30">Products must be for the same Product Type on an order. Please order different product types on separate requests.</p>
+    <hr />
+    <div class="row" style="margin-top:5px;margin-bottom:5px;margin-left:0">
+      <div class="col-md-6">
+        TIME REMAINING: <span><strong class="timer-message">{{counter}}</strong></span> SECONDS <span *ngIf="counter == 0"> <strong class="timer-message">Time Expired!</strong></span>
+      </div>
+      <div class="col-md-2">
+        <span *ngIf="orderModel.IsDiscountPricing"><strong>Discount Pricing</strong></span>
+      </div>
+      <button *ngIf="!isSell" (click)="reviewOrderRequest(true)" class="btn btn-default btn-style-one pull-right">Requote</button>
+    </div>
+    <hr />
+  </header>
+
+  <div [@fadeInOut] *ngIf="orderModel">
+    <app-ordertable [isSell]="isSell" [orderModel]="orderModel"></app-ordertable>
+    <app-ordersummary [orderModel]="orderModel"></app-ordersummary>
+    <hr />
+    <footer class="footer footer-form">
+    <app-orderfooter #orderFooter [orderModel]="orderModel" [isSell]="isSell"></app-orderfooter>
+
+      <div class="footer-buttons footer-button-bottom" *ngIf="orderModel.IsEditable">
+        <div class="row" style="margin:0">
+          <div class="col-md-3">
+            <button class="btn btn-default btn-style-one" (click)="openConfirmModal(template)">Cancel</button>
+          </div>
+          <div class="col-md-offset-7 col-md-2">
+            <button class="btn btn-default btn-style-one" (click)="reviewOrderRequest()">Review</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-buttons footer-button-bottom" style="background:#eeeeee;" *ngIf="!orderModel.IsEditable">
+        <div class="row" style="margin:0">
+          <div class="col-md-3 pull-left">
+            <button class="btn btn-default btn-style-one" (click)="openConfirmModal(template)">Cancel</button>
+          </div>
+          <div class="col-md-2 col-md-offset-5">
+            <button class="btn btn-default btn-style-one" (click)="editOrderRequest()">Edit</button>
+          </div>
+          <div class="col-md-2">
+            <button *ngIf="displayConfirm" class="btn btn-default btn-style-one pull-right" (click)="confirmOrderRequest()">Confirm</button>
+            <button *ngIf="!displayConfirm" class="btn btn-default btn-style-one pull-right" (click)="reviewOrderRequest(true)">ReQuote</button>
+          </div>
+        </div>
+      </div>
+      </footer>
+  </div>
+
+</div>
+<ng-template #template>
+  <div class="modal-body text-center confirmModal">
+    <p>Are you sure you want to cancel your order?</p>
+    <button type="button" class="btn btn-default" (click)="modalRef.hide()">No</button>
+    <button type="button" class="btn btn-primary" (click)="cancelOrder()">Yes</button>
+  </div>
+</ng-template>
+
+
+

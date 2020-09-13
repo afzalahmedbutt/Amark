@@ -1,0 +1,49 @@
+<div class="row" id="controlSection">
+  <div class="col-md-12">
+
+    <p>
+
+    </p>
+    <div style="margin-top: 50px;">
+
+    </div>
+
+    <div class="col-md-4" style="padding-top: 10px; text-align: right;">
+      <h4>A-Mark Portal Trading:</h4>
+    </div>
+    <div class="col-md-6" style="text-align: left;" id="switchSection">
+      <div class="md-col-12">
+        <div id="statusCheck" *ngIf="dislpayStatusCheck" style="padding-top: 30px;">
+          <div class="col-md-8" style="text-align: right;"><h4 style="color: #f9a304;"><i>checking status</i></h4></div>
+          <div class="col-md-4"><img [src]="statusCircle" style="padding-top: 15px;" /></div>
+        </div>
+
+        <div id="portalSwitch">
+          <div id="switchContainer" *ngIf="displaySwitch" style="padding-top: 2px;">
+
+            <!--<input id="switchToggle" type="checkbox" checked data-toggle="toggle" data-size="large" data-onstyle="success" data-offstyle="danger">-->
+            <!--<block-ui message="Deafult Message">-->
+            <ui-switch [(ngModel)]="isPortalOpen" size="large" (ngModelChange)="switchToggled()"></ui-switch>
+
+            <!--</block-ui>-->
+          </div>
+        </div>
+      </div>
+      <!--<div class="col-md-3">
+
+      </div>-->
+    </div>
+
+  </div>
+</div>
+
+
+
+<ng-template #template>
+  <div class="modal-body text-center confirmModal">
+    <p *ngIf="!isPortalClosed">Continue turning off trading?</p>
+    <p *ngIf="isPortalClosed">Continue turning on trading?</p>
+    <button type="button" class="btn btn-default" (click)="modalRef.hide()">No</button>
+    <button type="button" class="btn btn-primary" (click)="cancelOrder()">Yes</button>
+  </div>
+</ng-template>

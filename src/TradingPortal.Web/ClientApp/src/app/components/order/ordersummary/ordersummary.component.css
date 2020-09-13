@@ -1,0 +1,25 @@
+
+.btn-print-summary {
+  width: 120px;
+  height: 40px;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+.commodity-name,
+.commodity-total{
+  text-align:right;
+}
+
+.summary-commodity{
+  font-weight:700;
+}
+
+.review-summary{
+  margin-top:18px;
+}
+
+.review-summary hr {
+  margin-top: 5px;
+  margin-bottom: 2px;
+}

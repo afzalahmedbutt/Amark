@@ -1,0 +1,59 @@
+<div class="container-fluid sidebar-page-container-admin font-opensans">
+  <div class="row clearfix">
+    <div class="sidebar-side col-md-2 col-sm-4 col-xs-12">
+      <aside class="sidebar">
+        <!--Blog Category Widget-->
+        <div bootstrapTab #tab="bootstrap-tab" class="sidebar-widget sidebar-widget-admin sidebar-blog-category">
+          <ul bootstrapTab #tab="bootstrap-tab" class="nav nav-tabs tabs-left" (showBSTab)="onShowTab($event)">
+
+            <li>
+              <a id="usersTab" [routerLink]="[]" fragment="users" href="#users" data-toggle="tab"><i class="fa fa-users fa-fw" aria-hidden="true"></i> Users</a>
+            </li>
+            <li>
+              <a id="contentTab" [routerLink]="[]" fragment="content" href="#content" data-toggle="tab"><i class="fa fa-shield fa-fw" aria-hidden="true"></i> Content</a>
+            </li>
+            <li>
+              <a id="rolesTab" [routerLink]="[]" fragment="roles" href="#roles" data-toggle="tab"><i class="fa fa-shield fa-fw" aria-hidden="true"></i> Roles</a>
+            </li>
+            <li>
+              <a id="killswitchTab" [routerLink]="[]" fragment="killswitch" href="#killswitch" data-toggle="tab"><i class="fa fa-shield fa-fw" aria-hidden="true"></i> Kill Switch</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+    <div class="col-sm-10">
+      <div class="tab-content">
+        <div class="tab-pane" id="users">
+          <!--<h4>Users Management</h4>
+    <hr class="separator-hr" />-->
+          <div [@fadeInOut] *ngIf="isUsersActivated" class="content-container">
+            <users-management></users-management>
+          </div>
+        </div>
+        <div class="tab-pane" id="content">
+          <!--<h2 class="text-bold mt-3">Content Management</h2>
+    <hr class="separator-hr" />-->
+          <div [@fadeInOut] *ngIf="isContentManagementActivated" class="content-container">
+            <content-management></content-management>
+          </div>
+        </div>
+        <div class="tab-pane" id="roles">
+          <h2 class="text-bold mt-3">Role Management</h2>
+          <hr class="separator-hr" />
+          <div [@fadeInOut] *ngIf="isRolesActivated" class="content-container">
+            <!--<roles-management></roles-management>-->
+          </div>
+        </div>
+        <div class="tab-pane" id="killswitch">
+          <h2 class="text-bold mt-3">Kill Switch</h2>
+          <hr class="separator-hr" />
+          <div [@fadeInOut] *ngIf="isKillSwitchActivated" class="content-container">
+            <killswitch-management></killswitch-management>
+            <!--<roles-management></roles-management>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

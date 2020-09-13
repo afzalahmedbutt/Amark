@@ -1,0 +1,234 @@
+<!--<footer class="footer footer-form" *ngIf="orderModel.IsEditable">-->
+<div class="footer footer-form">
+  <div class="row" style="margin-left:10px">
+    <div class="col-md-3">
+      <div class="form-group" *ngIf="!isSell">
+        <label>Shipping:</label>
+        <div class="checkbox" *ngIf="orderModel.IsEditable">
+        <label>
+          <input type="checkbox" [(ngModel)]="orderModel.IsHFI"> Hold For Instructions (HFI)
+        </label>
+        </div>
+        <div *ngIf="!orderModel.IsEditable">
+          <span *ngIf="orderModel.IsHFI">Hold For Instructions (HFI)</span>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="isSell">
+        <label>Call A-Mark for shipping instructions.</label>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>TP Confirmation #: <br /> <small *ngIf="orderModel.IsEditable"><i>Max 15 Characters</i></small> </label>
+        <input type="text" *ngIf="orderModel.IsEditable" class="form-control" [(ngModel)]="orderModel.TPConfirmation">
+        <span *ngIf="!orderModel.IsEditable">{{orderModel.TPConfirmation}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Special Instrucitons <br /> <small *ngIf="orderModel.IsEditable"><i>Max 500 Characters</i></small></label>
+        <textarea style="height:100px" *ngIf="orderModel.IsEditable" class="form-control" [(ngModel)]="orderModel.SpecialInstructions"></textarea>
+        <span *ngIf="!orderModel.IsEditable">{{orderModel.SpecialInstructions}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-left:10px">
+    <div  class="col-md-6" *ngIf="orderModel.IsEditable && !isSell">
+      <div class="form-group">
+        <label>Destination: <br /> <small><i>Select One</i></small></label>
+        <div class="row">
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" [(ngModel)]="orderModel.IsDropShip" [value]="false">
+              Ship to Me
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" [(ngModel)]="orderModel.IsDropShip" [value]="true">
+              Drop Ship
+            </label>
+          </div>
+        </div>
+        <!--<div *ngIf="orderModel.IsDropShip" class="drop-ship">-->
+        <div [@dropShipInOut] *ngIf="orderModel.IsDropShip && orderModel.IsEditable && !isSell" class="drop-ship">
+          <!--<app-dropship [orderModel]="orderModel"></app-dropship>-->
+          <form #f="ngForm" class="form-horizontal dropship-form" novalidate>
+            <div class="row form-group">
+              <div class="col-md-3">
+                <label>Name 1:</label>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" id="name1" name="name1" #name1="ngModel" type="text" [(ngModel)]="orderModel.Name1" required />
+                <span *ngIf="!orderModel.IsEditable">{{orderModel.Name1}}</span>
+                <span class="errorMessage" *ngIf="isSubmitted && !name1.valid">
+                  Name 1 is required
+                </span>
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3">
+                <label>Name 2:</label>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" name="name2" type="text" [(ngModel)]="orderModel.Name2" />
+                <span *ngIf="!orderModel.IsEditable">{{orderModel.Name2}}</span>
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3">
+                <label>Address 1:</label>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" name="address1" #address1="ngModel" type="text" [(ngModel)]="orderModel.Address1" required />
+                <span *ngIf="!orderModel.IsEditable">{{orderModel.Address1}}</span>
+                <span class="errorMessage" *ngIf="isSubmitted && !address1.valid">
+                  Address 1 is required
+                </span>
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3">
+                <label>Address 2:</label>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" name="address2" type="text" [(ngModel)]="orderModel.Address2" />
+                <span *ngIf="!orderModel.IsEditable">{{orderModel.Address2}}</span>
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3">
+                <label>City:</label>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" name="city" #city="ngModel" type="text" [(ngModel)]="orderModel.City" required />
+                <span *ngIf="!orderModel.IsEditable">{{orderModel.City}}</span>
+                <span class="errorMessage" *ngIf="isSubmitted && !city.valid">
+                  City is required
+                </span>
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3">
+                <label>State/province:</label>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" name="state" #state="ngModel" [maxLength]="3" type="text" [(ngModel)]="orderModel.State" required uppercase />
+                <span *ngIf="!orderModel.IsEditable">{{orderModel.State}}</span>
+                <span class="errorMessage" *ngIf="isSubmitted && !state.valid">
+                  State / Province is required
+                </span>
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3">
+                <label>Zip/postal code:</label>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" name="zip" [maxLength]="5" #zip="ngModel" type="text" [(ngModel)]="orderModel.Zip" required />
+                <span *ngIf="!orderModel.IsEditable">{{orderModel.Zip}}</span>
+                <span class="errorMessage" *ngIf="isSubmitted && !zip.valid">
+                  Zip / postal code is required
+                </span>
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3">
+                <label>Country:</label>
+              </div>
+              <div class="col-md-6">
+                <input class="form-control" name="country" #country="ngModel" type="text" [(ngModel)]="orderModel.Country" required uppercase />
+                <span class="errorMessage" *ngIf="isSubmitted && !country.valid">
+                  Country is required
+                </span>
+                <span *ngIf="!orderModel.IsEditable">{{orderModel.Country}}</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <div style="margin-left:10px" class="col-md-6" *ngIf="!orderModel.IsEditable && !isSell">
+      <div class="form-group">
+        <label>Destination:</label>
+      </div>
+      <div *ngIf="!orderModel.IsDropShip && !orderModel.IsEditable">
+        <span>Ship to Me</span>
+      </div>
+      <div [@fadeInOut] *ngIf="orderModel.IsDropShip && !orderModel.IsEditable" class="drop-ship">
+        <form class="form-horizontal dropship-form" novalidate>
+          <div class="row form-group">
+            <div class="col-md-3">
+              <span>Name 1:</span>
+            </div>
+            <div class="col-md-6">
+              <span>{{orderModel.Name1}}</span>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3">
+              <span>Name 2:</span>
+            </div>
+            <div class="col-md-6">
+              <span>{{orderModel.Name2}}</span>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3">
+              <span>Address 1:</span>
+            </div>
+            <div class="col-md-6">
+              <span>{{orderModel.Address1}}</span>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3">
+              <span>Address 2:</span>
+            </div>
+            <div class="col-md-6">
+              <span>{{orderModel.Address2}}</span>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3">
+              <span>City:</span>
+            </div>
+            <div class="col-md-6">
+              <span>{{orderModel.City}}</span>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3">
+              <span>State/province:</span>
+            </div>
+            <div class="col-md-6">
+              <span>{{orderModel.State}}</span>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3">
+              <span>Zip/postal code:</span>
+            </div>
+            <div class="col-md-6">
+              <span>{{orderModel.Zip}}</span>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3">
+              <span>Country:</span>
+            </div>
+            <div class="col-md-6">
+              <span>{{orderModel.Country}}</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+
+

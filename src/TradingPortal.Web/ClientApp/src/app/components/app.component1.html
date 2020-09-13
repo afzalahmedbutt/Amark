@@ -1,0 +1,354 @@
+<!--[if IE]>
+<style>
+    .ie-margin-top {
+         margin-top: 30vh;
+    }
+</style>
+<![endif]-->
+<!--<script src="../assets/scripts/jquery.blockUI.js"></script>-->
+
+
+<ngx-toasta></ngx-toasta>
+<!--<div class='container'>-->
+<div>
+  <p-confirmDialog width="400" icon="fa fa-question-circle"></p-confirmDialog>
+</div>
+
+<div [@fadeInOut] *ngIf="applyfixedHeader">
+  <div class="scroll-to-top scroll-to-target" data-target="html"><span class="icon fa fa-arrow-up"></span></div>
+</div>
+
+<div [ngClass]="{'container-relative':isReview}">
+  <ngx-loading [show]="loadingReview" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+  <div class="page-wrapper" *ngIf="displayHeader">
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Main Header-->
+    <header class="main-header">
+      <!--[ngClass]="{'fixed-header':applyfixedHeader}">-->
+      <!--Header Top-->
+      <div class="header-top grey-bg py-2">
+        <div class="container-fluid">
+          <div class="clearfix">
+            <div class="top-left">
+              <ul class="clearfix">
+                <li><a href="tell:3105871485" class="py-0"><span class="icon fa fa-phone phone-icon"></span><span class="text-bold text-shadow">(310) 587-1485</span></a></li>
+                <li class="py-0 text-bold"><span class="text-bold text-shadow">Trading Desk  <span class="font-lg" style="font-weight:600;"> | </span> </span><span> <span class="text-bold text-shadow">Online Trading is available via the A-Mark Trading Portal 24 hours a day, 7 days a week.</span></span></li>
+              </ul>
+
+            </div>
+            <div class="top-right">
+              <div class="clearfix">
+                <div class="nasdqtxt text-bold font-md pt-1 font-opensans text-shadow">
+                  NASDAQ: AMRK
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Spot Prices-->
+      <app-spotprice [updateTime]="updateTime" [spotPriceViewModel]="spotPriceViewModel" [prefix]="'main'" (vsWhichChange)="getUpdatedSpotPrices($event)"></app-spotprice>
+
+      <div class="header-upper">
+        <div class="container-fluid clearfix">
+
+          <div class="pull-left logo-outer">
+            <!--<div class="logo"><a routerLink="/"><img [src]="appLogo" alt="" title=""></a></div>-->
+          </div>
+
+          <div class="pull-right upper-right clearfix">
+
+            <div class="nav-outer clearfix">
+              <!-- Main Menu -->
+              <nav class="main-menu custom-main-menu" [style.padding-top]="getMainMenuPadding()">
+                <div class="navbar-header">
+                  <!-- Toggle Button -->
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                </div>
+
+                <div class="navbar-collapse collapse clearfix">
+                  <ul class="navigation clearfix" *ngIf="isUserLoggedIn">
+                    <!--<li class="current"><a href="index.html">Home</a></li>-->
+                    <li class=""><a *ngIf="isUserLoggedIn && !isPortalClosed" routerLink="/">Home</a></li>
+                    <li class=""><a *ngIf="isAdminUser" routerLink="/adminsection">Administration</a></li>
+                    <li class=""><a *ngIf="isUserLoggedIn && !isPortalClosed" routerLink="changepassword">Change Password</a></li>
+                    <li class=""><a *ngIf="isUserLoggedIn" (click)="logout()"><span class="glyphicon glyphicon-user"></span>&nbsp; Logout</a></li>
+
+                  </ul>
+                </div>
+              </nav>
+
+
+              <!-- Main Menu End-->
+              <div class="outer-box">
+                
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!--End Header Upper-->
+      <!--Sticky Header-->
+      <div class="sticky-header" [@moveInStickyHeader] [@fadeOutStickyHeader] *ngIf="applyfixedHeader">
+        <div class="auto-container clearfix">
+          <!--Logo-->
+          <div class="logo pull-left">
+            <a routerLink="/" class="img-responsive"><img [src]="appLogoSmall" alt="" title=""></a>
+          </div>
+
+          <!--Right Col-->
+          <div class="right-col pull-right">
+            <!-- Main Menu -->
+            <nav class="main-menu">
+              <div class="navbar-header">
+                <!-- Toggle Button -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+
+              <div class="navbar-collapse collapse clearfix">
+                <ul class="navigation clearfix">
+                  <li class=""><a *ngIf="isUserLoggedIn && !isPortalClosed" routerLink="/">Home</a></li>
+                  <li class=""><a *ngIf="isAdminUser" routerLink="/adminsection">Administration</a></li>
+                  <li class=""><a *ngIf="isUserLoggedIn && !isPortalClosed" routerLink="changepassword">Change Password</a></li>
+                  <li class=""><a *ngIf="isUserLoggedIn" (click)="logout()"><span class="glyphicon glyphicon-user"></span>&nbsp; Logout</a></li>
+
+
+                </ul>
+              </div>
+            </nav><!-- Main Menu End-->
+          </div>
+
+        </div>
+        <!--Spot Prices-->
+        <!--<app-spotprice [prefix]="'sticky'"></app-spotprice>-->
+        <app-spotprice [updateTime]="updateTime" [spotPriceViewModel]="spotPriceViewModel" [prefix]="'sticky'" (vsWhichChange)="getUpdatedSpotPrices($event)"></app-spotprice>
+
+
+        <!--Spot Prices-->
+      </div>
+      <!--End Sticky Header-->
+
+
+    </header>
+    <!--<section class="page-title" style="background-image:url('assets/images/bg03.jpg');">-->
+    <section *ngIf="!isAdminSection" style="max-height:150px;" class="page-title" [style.backgroundImage]="'url('+ background +')'">
+      <div class="auto-container">
+        <h1 *ngIf="isUserLoggedIn"> Hi, {{userFirstName}}!</h1>
+        <div class="title">
+          A Mark
+        </div>
+      </div>
+
+    </section>
+    <section *ngIf="isAdminSection" style="max-height:150px;background-color:#181818" [style.backgroundImage]="'url('+ background +')'" class="page-title-admin">
+      <div class="auto-container">
+      </div>
+    </section>
+  </div>
+
+  <div id="pre-bootstrap" *ngIf="!removePrebootScreen" [class.prebootShow.app-component]="!isAppLoaded" class="app-component prebootStep">
+    <div class="messaging">
+      <h1>
+        Loaded!
+      </h1>
+      <p>
+        A-Mark Trading Portal - <span class="appName" style="font-style:italic"></span><span class="appName">App</span> &copy; <a href="https://www.amark.com">WWW.AMARK.COM</a>
+      </p>
+
+    </div>
+  </div>
+
+  <div>
+    <div id="mainContent" class="app-component">
+      <div *ngIf="isUserLoggedIn" [innerHtml]="announcementContet" id="content17" class="content container">
+
+      </div>
+      <div class="ie-margin-top">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    <div>
+
+      <!--Main Footer-->
+      <footer class="main-footer">
+        <section class="clients-section" [style.backgroundImage]="'url('+ backgroundFooter +')'">
+          <div class="container-fluid text-left">
+            <h2>Additional Contact Options</h2>
+          </div>
+        </section>
+        <div class="container-fluid">
+          <div class="widgets-section">
+            <div class="row clearfix">
+              <!--<h2 class="footercontactus">Additional Contact Options</h2>-->
+              <div class="contact-section col-md-9">
+                <div class="form-lower-section clearfix">
+                  <!--Info Column-->
+                  <div class="info-column col-md-4 col-sm-12 col-xs-12">
+                    <div class="inner-column pb-5">
+                      <owl-carousel #owlElement [options]="mySlideOptions" [carouselClasses]="['owl-carousel','owl-theme', 'font-opensans']">
+                        <div class="slide">
+                          <h3>Headquarters</h3>
+                          <ul class="info-list">
+                            <li style="line-height:initial;font-weight:400;"><span class="icon flaticon-placeholder-filled-point"></span><strong class="font-lg py-3">Address: </strong> <br /> A-Mark Precious Metals, Inc. <br /> 2121 Rosecrans Avenue<br /> Suite 6300<br /> El Segundo, CA 90245 USA.</li>
+                            <!--<li><span class="icon flaticon-telephone-handle-silhouette"></span><strong>Call:</strong>(310) 587-1485</li>-->
+                            <li class="invisible"><span class="icon fa fa-envelope"></span><strong>Email:</strong>amark@info.com</li>
+                            <li class="invisible"><span class="icon flaticon-clock-3"></span><strong>Hours:</strong>Sunday - Friday: <br /> 3:00 pm - 5:00 pm (PST)</li>
+                          </ul>
+                        </div>
+                        <div class="slide">
+                          <h3>European Office</h3>
+                          <ul class="info-list">
+                            <li style="line-height:initial;font-weight:400;"><span class="icon flaticon-placeholder-filled-point"></span><strong class="font-lg py-3">Address: </strong><br /> A-Mark Trading AG<br /> Collection Business Center<br /> 5th Floor , Office A-14 <br />Tuchlauben 7a <br />1010 Vienna , AUSTRIA</li>
+                            <!--<li><span class="icon flaticon-telephone-handle-silhouette"></span><strong>Call:</strong>(123) 123-1234</li>-->
+                            <li class="invisible"><span class="icon fa fa-envelope"></span><strong>Email:</strong>infoeu@amark.com</li>
+                            <li class="invisible"><span class="icon flaticon-clock-3"></span><strong>Hours:</strong>Monday - Saturday:<br /> 9:00 am - 6:00 pm (PST)</li>
+                          </ul>
+                        </div>
+                      </owl-carousel>
+
+
+
+                    </div>
+                  </div>
+                  <!--Form Column-->
+                  <div  class="form-column col-md-8 col-sm-12 col-xs-12">
+                    <div class="inner-column pb-5">
+                      <div class="row clearfix">
+                        <div class="form-inner-column col-sm-12 col-xs-12">
+                          <div class="contact-form">
+                            <form #f="ngForm"  method="post" action="" id="contact-form" novalidate="novalidate"
+                                  (ngSubmit)="f.form.valid ? sendMessage() : ''">
+                              <div class="row clearfix">
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                  <input type="text" name="firstname" #firstName="ngModel" [(ngModel)]="contactUsMessage.FirstName" placeholder="First Name*" required>
+                                  <span class="errorMessage" *ngIf="f.submitted && !firstName.valid">
+                                    First Name To is required.
+                                  </span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                  <input type="text" name="lastname" #laststName="ngModel" [(ngModel)]="contactUsMessage.LastName" placeholder="Last Name*" required>
+                                  <span class="errorMessage" *ngIf="f.submitted && !laststName.valid">
+                                    Last Name is required.
+                                  </span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                  <select name="sendTo" #sendTo="ngModel" class="" [(ngModel)]="contactUsMessage.SendToEmailAliasCode" required>
+                                    <option selected="" disabled="" hidden=""> Send To  </option>
+                                    <option *ngFor="let emailAlias of contactFormData.EmailAliases"  [value]="emailAlias.Value">
+                                      {{emailAlias.Text}}
+                                    </option>
+                                  </select>
+                                  <span class="errorMessage" *ngIf="f.submitted && !sendTo.valid">
+                                    Send To is required.
+                                  </span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                  <input type="text" name="email" #email="ngModel" [(ngModel)]="contactUsMessage.Email" placeholder="Your Email" [required]="contactUsMessage.PreferredContactMethod == 'Email'">
+                                  <span class="errorMessage" *ngIf="f.submitted && !email.valid">
+                                    Your email is required.
+                                  </span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                  <select name="contactMethods" #contactMethods="ngModel" [(ngModel)]="contactUsMessage.PreferredContactMethod" class="" required>
+                                    <option selected="" disabled="" hidden=""> Preferred contact method  </option>
+                                    <option *ngFor="let contactMethod of contactFormData.ContactMethods" [value]="contactMethod.Value">
+                                      {{contactMethod.Text}}
+                                    </option>
+                                  </select>
+                                  <span class="errorMessage" *ngIf="f.submitted && !contactMethods.valid">
+                                    Preferred contact method is required.
+                                  </span>
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                  <input type="text" name="phone" #phone="ngModel" [(ngModel)]="contactUsMessage.Phone" placeholder="Phone" [required]="contactUsMessage.PreferredContactMethod == 'Phone'">
+                                  <span class="errorMessage" *ngIf="f.submitted && !phone.valid">
+                                    Phone is required.
+                                  </span>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                  <textarea name="Comments" #comments="ngModel" [(ngModel)]="contactUsMessage.Message" placeholder="Please provide any comments that would help us to better serve you" required></textarea>
+                                  <span class="errorMessage" *ngIf="f.submitted && !comments.valid">
+                                    Comments are required.
+                                  </span>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group text-right">
+                                  <button class="theme-btn btn-style-one" type="submit" name="submit-form">Send Message</button>
+                                </div>
+
+                              </div>
+                            </form>
+                          </div>
+                          <!--End Contact Form -->
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="links-widget">
+                  <div class="widget-content">
+                    <ul class="links">
+                      <li><a href="Risks.html">Metal Risks / Disclosure</a></li>
+                      <li><a href="Terms.html">Terms of Service</a></li>
+                      <li><a href="Disclaimer.html">Site Disclaimer</a></li>
+                      <li><a href="Privacy.html">Privacy Policy</a></li>
+                      <li><a href="Career.html">Careers</a></li>
+                      <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Footer Bottom-->
+        <div class="footer-bottom">
+          <div class="container-fluid">
+            <div class="row clearfix">
+              <div class="nav-column col-xs-12">
+                <ul class="footer-nav">
+                  <li><div class="copyright pr-5">Copyright © 2018 All Rights Reserved by <a href="index.html" class="font-opensans theme-text-color">A-Mark.</a></div></li>
+                  <li><a>&nbsp;</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!--End Main Footer-->
+
+    </div>
+  </div>
+
+
+  <div *ngIf="shouldShowLoginModal" class="modal fade" bsModal #loginModal="bs-modal" (onShown)="onLoginModalShown()" (onHidden)="onLoginModalHidden()" (onHide)="onLoginModalHide()"
+       [config]="{backdrop: 'static'}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <app-login #loginControl isModal="true"></app-login>
+    </div>
+  </div>
+</div>

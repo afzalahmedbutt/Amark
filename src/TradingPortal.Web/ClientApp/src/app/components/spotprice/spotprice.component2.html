@@ -1,0 +1,54 @@
+<div id="spotpricesheader" class="roundedheaderclear app-component container" style="padding-top:58px;background:#ff9900;width:80%;background-color:#d9d9d9">
+  <!-- <span id="amarktradingmessageafterhours" style="(displayAfter)"  ></span> -->
+  <span id="spotmarketmessageafterhours" style="display:none">Market is closed</span>
+  <span id="amarkdeskmessageafterhours" style="display:none"></span>
+  <span id="spotpricestext" style="float:left;color:#ff9900;">SPOT PRICES<span id="updatetime" style="color:#666;">{{updateTime}}</span></span>
+  <div id="offerside" style="width:250px; float:right">
+    <div style="float:left">Offer Side vs.</div>
+    <div id="offersidecontrol" class="radio-button" style="font-weight:normal;float:right">
+      <input id="NY" name="radio" type="radio" value="NY" class="ui-helper-hidden-accessible" />
+      <!--<label for="NY">NY Close</label>-->
+      <label for="NY" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" role="button" aria-disabled="false"><span class="ui-button-text">NY Close</span></label>
+      <input id="PM" name="radio" type="radio" value="PM" class="ui-helper-hidden-accessible" />
+      <!--<label for="PM">PM Fix</label>-->
+      <label for="NY" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" role="button" aria-disabled="false"><span class="ui-button-text">PM Fix</span></label>
+    </div>
+    <!--<div>Offer Side vs.</div>-->
+  </div>
+</div>
+<div id="spotpricesbody" class="app-component container spotpricesblock" style="width:80%;background-color:#d9d9d9;border:.3px outset grey">
+  <div class="row">
+    <div *ngFor="let item of webSpotPrices" class="col-md-3 spot-price" style="border-color: rgb(231, 231, 231);">
+      <div class="row">
+        <div class="col-md-4">
+          <a><img [src]="spotPriceLogo" alt="logo" class="charticon"></a>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-4" style="padding:0">
+              <a>{{item.MetalName}}</a>
+            </div>
+            <div class="col-md-4" style="padding:0">
+              <span *ngIf="parseInteger(item.ChangeVal) > 0">+</span><span [style.color]=getColor(item)>{{item.ChangeVal}}</span>
+            </div>
+            <div class="col-md-3">
+              <img *ngIf="item.Ask < item.VsClose" [src]="downArrow" alt="logo">
+              <img *ngIf="item.Ask == item.VsClose" [src]="downArrow" alt="logo">
+              <img *ngIf="item.Ask > item.VsClose" [src]="upArrow" alt="logo">
+            </div>
+            <div class="col-md-3">
+              <span style="display:none">{{item.ChangePer}}%</span>
+            </div>
+
+          </div>
+          <div class="row">
+            <span>{{item.RoundedBid | decimalCurrency}} </span>/
+            <span>{{item.RoundedAsk | decimalCurrency}}</span>
+            <span style="display:none">{{item.RoundedClose}}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

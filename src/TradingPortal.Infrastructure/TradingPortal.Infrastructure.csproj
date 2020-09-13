@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Managers\**" />
+    <EmbeddedResource Remove="Managers\**" />
+    <None Remove="Managers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="EntityConfigurations\ProductEntityConfigurations.cs" />
+    <Compile Remove="EntityConfigurations\ProductProductTagMappingEntityConfiguations.cs" />
+    <Compile Remove="Services\AccountManager.cs" />
+    <Compile Remove="Services\GenericAttributeService.cs" />
+    <Compile Remove="Services\Interfaces\IGenericAttributeService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.4" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.7.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TradingPortal.Core\TradingPortal.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CustomExceptionMiddleware\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,42 @@
+<div class="container confirm-order" style="width:80%;min-height:80vh !important" *ngIf="orderModel">
+
+  <header class="pageHeader">
+    <div *ngIf="orderModel.IsHedgedOrder">
+      <h3>{{orderType}} Order Confirmed</h3>
+      <p style="font-size: larger;color: #989898;">
+        <span><strong>Thank you. Your ticket number is </strong></span>
+        <span><strong>{{orderModel.sTicketNumber}}</strong></span>
+        <span><strong>. Your {{orderTypeNormalized}} order is confirmed by the A-Mark Trading Desk. You will shortly receive an email confirmation for your order.</strong></span>
+      </p>
+    </div>
+    <div *ngIf="!orderModel.IsHedgedOrder">
+      <h3 style="font-size:2vw">{{orderType}} Pending Confirmation</h3>
+      <p style="font-size: larger;color: #989898;">
+        <span><strong>Thank you. Your ticket number is </strong></span>
+        <span><strong>{{orderModel.sTicketNumber}}</strong></span>
+        <span><strong>. Your {{orderTypeNormalized}} order is pending confirmation from the A-Mark Trading Desk. Once your order is confirmed, you will receive an email confirmation.</strong></span>
+      </p>
+    </div>
+    <br />
+    <span class="grayColor"><strong>Date:</strong> {{orderModel.Date}}  &nbsp;&nbsp; <strong>Time:</strong> {{orderModel.Time}} </span> &nbsp;&nbsp; <input type="button" id="btnPrint" name="btnPrint" value="Print Summary" class="btn btn-default btn-style-one" onclick="javascript:window.print();" />
+  </header>
+
+  <div>
+    <app-ordertable [isSell]="isSell" [orderModel]="orderModel"></app-ordertable>
+    <app-ordersummary [orderModel]="orderModel"></app-ordersummary>
+  </div>
+  <hr />
+  <footer class="footer footer-form">
+    <app-orderfooter [orderModel]="orderModel" [isSell]="isSell"></app-orderfooter>
+    </footer>
+  <p>Please click below for another transaction.</p>
+  <div class="row footer-button-bottom">
+    <div class="col-md-2">
+      <button class="btn btn-default btn-style-one" [routerLink]="['/buy']">Buy</button>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-default btn-style-one" [routerLink]="['/sell']">Sell</button>
+    </div>
+    
+  </div>
+</div>
