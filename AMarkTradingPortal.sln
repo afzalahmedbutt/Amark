@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{17070A46-661F-4A01-8B84-CE9C59173779}"
 EndProject
@@ -68,31 +68,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46C86587-3EE9-4CF2-966A-9160EF864A31}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://sm-tfs01:8080/tfs/apmicollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = src\\TradingPortal.Business\\TradingPortal.Business.csproj
-		SccProjectTopLevelParentUniqueName1 = AMarkTradingPortal.sln
-		SccProjectName1 = src/TradingPortal.Business
-		SccLocalPath1 = src\\TradingPortal.Business
-		SccProjectUniqueName2 = src\\TradingPortal.Core\\TradingPortal.Core.csproj
-		SccProjectTopLevelParentUniqueName2 = AMarkTradingPortal.sln
-		SccProjectName2 = src/TradingPortal.Core
-		SccLocalPath2 = src\\TradingPortal.Core
-		SccProjectUniqueName3 = src\\TradingPortal.Infrastructure\\TradingPortal.Infrastructure.csproj
-		SccProjectTopLevelParentUniqueName3 = AMarkTradingPortal.sln
-		SccProjectName3 = src/TradingPortal.Infrastructure
-		SccLocalPath3 = src\\TradingPortal.Infrastructure
-		SccProjectUniqueName4 = src\\TradingPortal.Web\\TradingPortal.Web.csproj
-		SccProjectTopLevelParentUniqueName4 = AMarkTradingPortal.sln
-		SccProjectName4 = src/TradingPortal.Web
-		SccLocalPath4 = src\\TradingPortal.Web
-		SccProjectUniqueName5 = src\\WindowsServiceEndPoint\\WindowsServiceEndPoint.csproj
-		SccProjectTopLevelParentUniqueName5 = AMarkTradingPortal.sln
-		SccProjectName5 = src/WindowsServiceEndPoint
-		SccLocalPath5 = src\\WindowsServiceEndPoint
 	EndGlobalSection
 EndGlobal
